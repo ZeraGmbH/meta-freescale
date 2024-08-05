@@ -5,6 +5,9 @@ require recipes-kernel/linux/linux-imx.inc
 
 DEPENDS += "lzop-native bc-native"
 
-SRC_URI = "git://github.com/Freescale/linux-fslc.git;branch=${SRCBRANCH} \
-           file://defconfig"
+SRC_URI = " \
+    git://github.com/Freescale/linux-fslc.git;branch=${SRCBRANCH} \
+    file://defconfig \
+    file://0001-USB-serial-pl2303-add-support-for-PL2303HXN.patch \
+"
 LOCALVERSION = "-fslc"
