@@ -11,3 +11,8 @@ SRC_URI = " \
     file://0001-USB-serial-pl2303-add-support-for-PL2303HXN.patch \
 "
 LOCALVERSION = "-fslc"
+
+do_install_append() {
+    rm -f ${D}/boot/uImage
+    mv ${D}/boot/uImage* ${D}/boot/uImage
+}
