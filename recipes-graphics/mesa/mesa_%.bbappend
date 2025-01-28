@@ -16,6 +16,7 @@ python () {
 
 # Enable Etnaviv and Freedreno support
 PACKAGECONFIG_append_use-mainline-bsp = " gallium etnaviv kmsro freedreno"
+RDEPENDS:${PN}:append:use-mainline-bsp = " libdrm-armada"
 
 # For NXP BSP, choose between gallium and osmesa, and between enabling
 # dri and swrast or not. gallium and dri are default.
