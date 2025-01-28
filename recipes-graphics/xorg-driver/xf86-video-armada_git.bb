@@ -17,20 +17,15 @@ require recipes-graphics/xorg-driver/xorg-driver-video.inc
 DEPENDS += "libdrm-armada"
 
 LIC_FILES_CHKSUM = " \
-    file://README;md5=d5271074fb6ad959b7b6cfa68b4adaf0 \
-    file://../etna_viv/LICENSE;md5=9d4853905d85f044ed013e75def30a76 \
+    file://README;md5=398023ad112dd65d0461eef7380a005f \
+    file://etna_viv/LICENSE;md5=9d4853905d85f044ed013e75def30a76 \
     "
 
-SRCREV_armada = "78e7116a5bc6cdd9f93cbf1552d342933623ab59"
-SRCREV_etna = "8478eef32fd911ebb300c970071e22227afa1896"
-SRCREV_FORMAT = "armada_etna"
+SRCREV = "85a21724f8f0e2dd55ccee8841ee260b275a853b"
 
 PV = "0.1+git${SRCPV}"
 
-SRC_URI = " \
-    git://git.arm.linux.org.uk/cgit/xf86-video-armada.git;branch=unstable-devel;protocol=http;name=armada \
-    git://github.com/etnaviv/etna_viv.git;protocol=https;name=etna;destsuffix=etna_viv \
-    "
+SRC_URI = "git://github.com/xobs/xserver-xorg-video-armada.git;branch=novena-r2;protocol=https"
 
 S = "${WORKDIR}/git"
 
@@ -42,7 +37,7 @@ RDEPENDS_${PN} = "xserver-xorg-module-exa \
 
 EXTRA_OECONF = "--disable-etnaviv \
                 --disable-vivante \
-                --with-etnaviv-source=${WORKDIR}/etna_viv \
+                --with-etnaviv-source=${S}/etna_viv \
                 "
 
 COMPATIBLE_MACHINE = "(imx|use-mainline-bsp)"
