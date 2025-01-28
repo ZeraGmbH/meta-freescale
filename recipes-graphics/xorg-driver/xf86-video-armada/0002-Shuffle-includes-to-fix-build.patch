@@ -1,0 +1,140 @@
+From 9e86c9e36e1320d10a96fec57303b0e9a2f3a890 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andreas=20M=C3=BCller?= <schnitzeltony@gmail.com>
+Date: Wed, 29 Jan 2025 21:45:37 +0100
+Subject: [PATCH] Shuffle includes to fix build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Andreas Müller <schnitzeltony@gmail.com>
+---
+ src/common_drm.c       | 19 ++++++++++---------
+ src/common_drm_conn.c  | 12 ++++++------
+ src/common_drm_dri2.c  |  8 ++++----
+ src/common_drm_plane.c |  6 +++---
+ 4 files changed, 23 insertions(+), 22 deletions(-)
+
+diff --git a/src/common_drm.c b/src/common_drm.c
+index 78060bd..7819ece 100644
+--- a/src/common_drm.c
++++ b/src/common_drm.c
+@@ -12,21 +12,12 @@
+ #include <stdint.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
+-#include <xf86drm.h>
+-#include <xf86drmMode.h>
+ 
+-#include "xf86.h"
+ #include "cursorstr.h"
+ 
+ #include "boxutil.h"
+ #include "pixmaputil.h"
+ 
+-#include "common_drm.h"
+-#include "common_drm_conn.h"
+-#include "common_drm_helper.h"
+-#include "xf86_OSproc.h"
+-#include "xf86Crtc.h"
+-#include "xf86cmap.h"
+ #include "fb.h"
+ #include "micmap.h"
+ #include <xf86DDC.h>
+@@ -37,6 +28,16 @@
+ #include <libudev.h>
+ #endif
+ 
++#include <xf86drm.h>
++#include "common_drm.h"
++#include "common_drm_helper.h"
++#include "common_drm_conn.h"
++#include <xf86drmMode.h>
++#include "xf86_OSproc.h"
++#include "xf86Crtc.h"
++#include "xf86cmap.h"
++#include "xf86.h"
++
+ #if ABI_VIDEODRV_VERSION >= SET_ABI_VERSION(22,0)
+ #define HAVE_NOTIFY_FD	1
+ #endif
+diff --git a/src/common_drm_conn.c b/src/common_drm_conn.c
+index 9f73d20..c94a678 100644
+--- a/src/common_drm_conn.c
++++ b/src/common_drm_conn.c
+@@ -11,20 +11,20 @@
+ #include <errno.h>
+ #include <stdint.h>
+ #include <stdlib.h>
+-#include <xf86drm.h>
+-#include <xf86drmMode.h>
+-
+-#include "xf86.h"
+ 
+ #include "utils.h"
+ 
+-#include "common_drm.h"
+-#include "common_drm_conn.h"
+ #include "xf86Crtc.h"
+ #include <xf86DDC.h>
+ #include <X11/extensions/dpmsconst.h>
+ #include <X11/Xatom.h>
+ 
++#include <xf86drm.h>
++#include <xf86drmMode.h>
++#include "xf86.h"
++#include "common_drm.h"
++#include "common_drm_conn.h"
++
+ struct common_drm_property {
+ 	drmModePropertyPtr mode_prop;
+ 	int natoms;
+diff --git a/src/common_drm_dri2.c b/src/common_drm_dri2.c
+index 6368016..45f105e 100644
+--- a/src/common_drm_dri2.c
++++ b/src/common_drm_dri2.c
+@@ -7,17 +7,17 @@
+ 
+ #include <errno.h>
+ #include <xf86drm.h>
+-#include <xf86drmMode.h>
+ 
+ #include "dixstruct.h"
+ #include "dri2.h"
+-#include "xf86.h"
+ 
+-#include "armada_drm.h"
+ #include "common_drm.h"
+ #include "common_drm_dri2.h"
+-#include "common_drm_helper.h"
+ #include "compat-api.h"
++#include "armada_drm.h"
++#include "common_drm_helper.h"
++#include <xf86drmMode.h>
++#include "xf86.h"
+ 
+ static DevPrivateKeyRec dri2_client_key;
+ static RESTYPE dri2_wait_client_restype;
+diff --git a/src/common_drm_plane.c b/src/common_drm_plane.c
+index dd44e5d..1ec6e6a 100644
+--- a/src/common_drm_plane.c
++++ b/src/common_drm_plane.c
+@@ -12,13 +12,13 @@
+ #include <stdint.h>
+ #include <stdlib.h>
+ #include <xf86drm.h>
+-#include <xf86drmMode.h>
+-
+-#include "xf86.h"
+ 
+ #include "compat-drm.h"
+ #include "common_drm.h"
+ 
++#include <xf86drmMode.h>
++#include "xf86.h"
++
+ static drmModePropertyPtr plane_hash_property(struct common_drm_info *drm,
+ 	uint32_t prop_id, Bool create)
+ {
+-- 
+2.48.1
+

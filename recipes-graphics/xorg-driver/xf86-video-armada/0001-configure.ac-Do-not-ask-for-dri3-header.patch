@@ -1,0 +1,35 @@
+From 0846a7e9809feb52117ef47ad13826dc85bc0cb5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andreas=20M=C3=BCller?= <schnitzeltony@gmail.com>
+Date: Tue, 28 Jan 2025 23:25:49 +0100
+Subject: [PATCH] configure.ac: Do not ask for dri3 header
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Andreas Müller <schnitzeltony@gmail.com>
+---
+ configure.ac | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6df5c32..5756bd0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -278,13 +278,7 @@ if test x$DRI2 = xyes; then
+    AC_DEFINE(HAVE_DRI2,1,[Enable DRI2 driver support])
+ fi
+ 
+-PKG_CHECK_MODULES(DRI3, [dri3proto >= 1.0], , DRI3=no)
+-if test x$DRI3 != xno; then
+-   save_CFLAGS=$CFLAGS
+-   CFLAGS="$XORG_CFLAGS $DRM_CFLAGS $DRI_CFLAGS $DRI2_CFLAGS $DRI3_CFLAGS"
+-   AC_CHECK_HEADERS([dri3.h], DRI3=yes, DRI3=no, [#include <dixstruct.h>])
+-   CFLAGS=$save_CFLAGS
+-fi
++PKG_CHECK_MODULES(DRI3, [dri3proto >= 1.0], DRI3=yes, DRI3=no)
+ AC_MSG_CHECKING([whether to include DRI3 support])
+ AM_CONDITIONAL(HAVE_DRI3, test x$DRI3 = xyes)
+ AC_MSG_RESULT([$DRI3])
+-- 
+2.48.1
+
