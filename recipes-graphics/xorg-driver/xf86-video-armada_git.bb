@@ -14,23 +14,21 @@ LICENSE = "BSD"
 
 require recipes-graphics/xorg-driver/xorg-driver-video.inc
 
-DEPENDS += "libdrm-armada"
+DEPENDS += "libdrm xorgproto libxcb"
 
 LIC_FILES_CHKSUM = " \
     file://README;md5=d5271074fb6ad959b7b6cfa68b4adaf0 \
-    file://../etna_viv/LICENSE;md5=9d4853905d85f044ed013e75def30a76 \
-    "
+    file://etna_viv/LICENSE;md5=9d4853905d85f044ed013e75def30a76 \
+"
 
-SRCREV_armada = "78e7116a5bc6cdd9f93cbf1552d342933623ab59"
-SRCREV_etna = "8478eef32fd911ebb300c970071e22227afa1896"
-SRCREV_FORMAT = "armada_etna"
+SRCREV = "49a26eef17383187ef6b0d0c9fcd5061f3babf01"
 
 PV = "0.1+git${SRCPV}"
 
 SRC_URI = " \
-    git://git.arm.linux.org.uk/cgit/xf86-video-armada.git;branch=unstable-devel;protocol=http;name=armada \
-    git://github.com/etnaviv/etna_viv.git;protocol=https;name=etna;destsuffix=etna_viv \
-    "
+    git://github.com/ilbers/xf86-video-armada.git;branch=unstable;protocol=https \
+    file://0002-Shuffle-includes-to-fix-build.patch \
+"
 
 S = "${WORKDIR}/git"
 
@@ -40,9 +38,8 @@ RDEPENDS_${PN} = "xserver-xorg-module-exa \
                   xserver-xorg-extension-glx \
                   "
 
-EXTRA_OECONF = "--disable-etnaviv \
-                --disable-vivante \
-                --with-etnaviv-source=${WORKDIR}/etna_viv \
+EXTRA_OECONF = "--disable-vivante \
+                --disable-etnaviv \
                 "
 
 COMPATIBLE_MACHINE = "(imx|use-mainline-bsp)"
