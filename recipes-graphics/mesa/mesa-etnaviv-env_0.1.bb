@@ -15,7 +15,7 @@ do_install() {
     # systemd
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${sysconfdir}/systemd/system.conf.d
-        install -m 755 ${WORKDIR}/mesa-etnaviv.conf ${D}${sysconfdir}/systemd/system.conf.d/
+        install -m 644 ${WORKDIR}/mesa-etnaviv.conf ${D}${sysconfdir}/systemd/system.conf.d/
     fi
 
     # sysvinit - TODO
