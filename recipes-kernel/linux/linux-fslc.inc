@@ -10,8 +10,3 @@ SRC_URI = " \
     file://defconfig \
 "
 LOCALVERSION = "-fslc"
-
-do_install_append() {
-    rm -f ${D}/boot/uImage
-    mv ${D}/boot/uImage* ${D}/boot/uImage
-}
